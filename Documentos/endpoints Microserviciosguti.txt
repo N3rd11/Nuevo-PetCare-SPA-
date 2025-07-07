@@ -1,0 +1,227 @@
+Método: POST
+URL: http://localhost:8081/api/usuarios/registro
+Body (JSON):
+{'nombre': 'Pedro', 'correo': 'pedro@mail.com', 'contrasena': '123456', 'rolId': 1}
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8081/api/usuarios/login
+Body (JSON):
+{'correo': 'pedro@mail.com', 'contrasena': '123456'}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8081/api/usuarios
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8081/api/usuarios/1
+
+--------------------------------------------------
+
+Método: PUT
+URL: http://localhost:8081/api/usuarios/1
+Body (JSON):
+{'nombre': 'Pedro Actualizado', 'correo': 'pedro@mail.com', 'contrasena': '12345678', 'rolId': 1}
+
+--------------------------------------------------
+
+Método: DELETE
+URL: http://localhost:8081/api/usuarios/1
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8083/api/roles
+Body (JSON):
+{'nombre': 'CLIENTE', 'descripcion': 'Usuario del sistema'}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8083/api/roles
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8083/api/roles/1
+
+--------------------------------------------------
+
+Método: PUT
+URL: http://localhost:8083/api/roles/1
+Body (JSON):
+{'nombre': 'ADMIN', 'descripcion': 'Administrador del sistema'}
+
+--------------------------------------------------
+
+Método: DELETE
+URL: http://localhost:8083/api/roles/1
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8082/api/ubicacion/regiones
+Body (JSON):
+{'nombre': 'Región Metropolitana'}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8082/api/ubicacion/regiones
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8082/api/ubicacion/comunas
+Body (JSON):
+{'nombre': 'Santiago', 'regionId': 1}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8082/api/ubicacion/comunas
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8082/api/ubicacion/direcciones
+Body (JSON):
+{'calle': 'Av. Principal', 'numero': '123', 'comunaId': 1, 'usuarioId': 1}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8082/api/ubicacion/direcciones
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8087/api/especies
+Body (JSON):
+{'nombre': 'Perro'}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8087/api/especies
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8087/api/especies/1
+
+--------------------------------------------------
+
+Método: PUT
+URL: http://localhost:8087/api/especies/1
+Body (JSON):
+{'nombre': 'Gato'}
+
+--------------------------------------------------
+
+Método: DELETE
+URL: http://localhost:8087/api/especies/1
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8085/api/razas
+Body (JSON):
+{'nombre': 'Labrador', 'especieId': 1}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8085/api/razas
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8085/api/razas/1
+
+--------------------------------------------------
+
+Método: PUT
+URL: http://localhost:8085/api/razas/1
+Body (JSON):
+{'nombre': 'Poodle', 'especieId': 1}
+
+--------------------------------------------------
+
+Método: DELETE
+URL: http://localhost:8085/api/razas/1
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8086/api/mascotas
+Body (JSON):
+{'nombre': 'Firulais', 'genero': 'Macho','usuarioId': 1, 'especieId': 1, 'razaId': 1}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8086/api/mascotas
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8086/api/mascotas/1
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8086/api/mascotas/usuario/1
+
+--------------------------------------------------
+
+Método: PUT
+URL: http://localhost:8086/api/mascotas/1
+Body (JSON):
+{'nombre': 'Max', 'genero': 'Macho', 'usuarioId': 1, 'especieId': 1, 'razaId': 1}
+
+--------------------------------------------------
+
+Método: DELETE
+URL: http://localhost:8086/api/mascotas/1
+
+--------------------------------------------------
+
+Método: POST
+URL: http://localhost:8084/api/resenas
+Body (JSON):
+{'usuarioId': 1, 'comentario': 'Muy buen servicio', 'calificacion': 5, 'fecha': '2024-06-01'}
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8084/api/resenas
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8084/api/resenas/1
+
+--------------------------------------------------
+
+Método: GET
+URL: http://localhost:8084/api/resenas/usuario/1
+
+--------------------------------------------------
+
+Método: PUT
+URL: http://localhost:8084/api/resenas/1
+Body (JSON):
+{'usuarioId': 1, 'comentario': 'Servicio regular', 'calificacion': 3, 'fecha': '2024-06-01'}
+
+--------------------------------------------------
+
+Método: DELETE
+URL: http://localhost:8084/api/resenas/1
+
+--------------------------------------------------
+
