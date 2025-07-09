@@ -1,8 +1,10 @@
 package com.petcare.mascota.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.petcare.mascota.dto.MascotaRequestDTO;
 import com.petcare.mascota.model.Mascota;
 import com.petcare.mascota.service.MascotaService;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -25,39 +27,28 @@ public class MascotaController {
     @Autowired
     private MascotaService mascotaService;
 
-    @Operation(summary = "Listar todas las mascotas")
+   @PostMapping
+public ResponseEntity<Mascota> create(@RequestBody MascotaRequestDTO dto) {
+    System.out.println("➡ Registrando desde DTO: " + dto);
+    return ResponseEntity.ok(mascotaService.registrarDesdeDto(dto));
+}
     @GetMapping
     public List<Mascota> getAll() {
         return mascotaService.listar();
     }
 
-    @Operation(summary = "Obtener mascota por ID")
     @GetMapping("/{id}")
-    public Mascota getById(@PathVariable Long id) {
-        return mascotaService.obtenerPorId(id).orElse(null);
+    public ResponseEntity<Optional<Mascota>> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(mascotaService.obtenerPorId(id));
     }
 
-    @Operation(summary = "Crear nueva mascota")
-    @PostMapping
-    public Mascota create(@RequestBody Mascota mascota) {
-        return mascotaService.registrar(mascota);
-    }
-
-    @Operation(summary = "Actualizar mascota")
     @PutMapping("/{id}")
-    public Mascota update(@PathVariable Long id, @RequestBody Mascota mascota) {
-        return mascotaService.actualizar(id, mascota);
+    public ResponseEntity<Mascota> update(@PathVariable Long id, @RequestBody Mascota mascota) {
+        return ResponseEntity.ok(mascotaService.actualizar(id, mascota));
     }
 
-    @Operation(summary = "Eliminar mascota")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         mascotaService.eliminar(id);
-    }
-
-    @Operation(summary = "Listar mascotas por ID de usuario")
-    @GetMapping("/usuario/{usuarioId}")
-    public List<Mascota> getByUsuario(@PathVariable Long usuarioId) {
-        return mascotaService.buscarPorUsuarioId(usuarioId); 
     }
 }

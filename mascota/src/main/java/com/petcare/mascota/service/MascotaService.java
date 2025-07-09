@@ -1,6 +1,7 @@
 package com.petcare.mascota.service;
 
 import com.petcare.mascota.dto.EspecieDTO;
+import com.petcare.mascota.dto.MascotaRequestDTO;
 import com.petcare.mascota.dto.RazaDTO;
 import com.petcare.mascota.dto.UsuarioDTO;
 import com.petcare.mascota.feign.EspecieClient;
@@ -31,26 +32,25 @@ public class MascotaService {
     @Autowired
     private EspecieClient especieClient;
 
-    public Mascota registrar(Mascota mascota) {
+    public Mascota registrarDesdeDto(MascotaRequestDTO dto) {
         try {
-            // 🔎 Mostrar valores recibidos
-            System.out.println("➡ Registrando nueva mascota:");
-            System.out.println("Nombre: " + mascota.getNombre());
-            System.out.println("Género: " + mascota.getGenero());
-            System.out.println("Usuario ID: " + mascota.getUsuarioId());
-            System.out.println("Raza ID: " + mascota.getRazaId());
-            System.out.println("Especie ID: " + mascota.getEspecieId());
+            System.out.println("➡ Registrando desde DTO: " + dto);
 
-            // ✅ Validar que los IDs existan en los otros microservicios
-            UsuarioDTO usuario = usuarioClient.obtenerPorId(mascota.getUsuarioId());
-            RazaDTO raza = razaClient.obtenerPorId(mascota.getRazaId());
-            EspecieDTO especie = especieClient.obtenerPorId(mascota.getEspecieId());
+            UsuarioDTO usuario = usuarioClient.obtenerPorId(dto.getUsuarioId());
+            RazaDTO raza = razaClient.obtenerPorId(dto.getRazaId());
+            EspecieDTO especie = especieClient.obtenerPorId(dto.getEspecieId());
 
             System.out.println("✅ Usuario encontrado: " + usuario.getNombrecompleto());
             System.out.println("✅ Raza encontrada: " + raza.getNombre());
             System.out.println("✅ Especie encontrada: " + especie.getNombre());
 
-            // 💾 Guardar mascota
+            Mascota mascota = new Mascota();
+            mascota.setNombre(dto.getNombre());
+            mascota.setGenero(dto.getGenero());
+            mascota.setUsuarioId(dto.getUsuarioId());
+            mascota.setRazaId(dto.getRazaId());
+            mascota.setEspecieId(dto.getEspecieId());
+
             return mascotaRepository.save(mascota);
 
         } catch (FeignException.NotFound e) {
