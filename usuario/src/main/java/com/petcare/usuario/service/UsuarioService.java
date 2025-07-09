@@ -1,5 +1,9 @@
 package com.petcare.usuario.service;
 
+import com.petcare.usuario.dto.EstadoDTO;
+import com.petcare.usuario.dto.RolDTO;
+import com.petcare.usuario.feign.EstadoClient;
+import com.petcare.usuario.feign.RolClient;
 import com.petcare.usuario.model.Usuario;
 import com.petcare.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,21 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private RolClient rolClient;
+
+    @Autowired
+    private EstadoClient estadoClient;
+
     public Usuario registrar(Usuario usuario) {
         if (usuario.getContrasena() == null || usuario.getContrasena().isBlank()) {
             throw new IllegalArgumentException("La contraseña no puede ser vacía");
         }
+
+        RolDTO rol = rolClient.obtenerRolPorId(usuario.getRolId());
+        EstadoDTO estado = estadoClient.obtenerEstadoPorId(usuario.getEstadoId());
+
+        System.out.println("Registrando usuario con rol: " + rol.getNombre() + ", estado: " + estado.getNombreEstado());
 
         usuario.setContrasena(encoder.encode(usuario.getContrasena()));
         return repository.save(usuario);

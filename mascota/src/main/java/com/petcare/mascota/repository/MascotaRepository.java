@@ -9,3 +9,4 @@ import com.petcare.mascota.model.Mascota;
 public interface MascotaRepository extends JpaRepository<Mascota, Long>{
 List<Mascota> findByUsuarioId(Long usuarioId);
 }
+

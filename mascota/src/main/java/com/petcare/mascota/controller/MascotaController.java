@@ -40,7 +40,7 @@ public class MascotaController {
     @Operation(summary = "Crear nueva mascota")
     @PostMapping
     public Mascota create(@RequestBody Mascota mascota) {
-        return mascotaService.guardar(mascota);
+        return mascotaService.registrar(mascota);
     }
 
     @Operation(summary = "Actualizar mascota")
@@ -58,7 +58,6 @@ public class MascotaController {
     @Operation(summary = "Listar mascotas por ID de usuario")
     @GetMapping("/usuario/{usuarioId}")
     public List<Mascota> getByUsuario(@PathVariable Long usuarioId) {
-        return mascotaService.buscarPorUsuarioId(usuarioId);
+        return mascotaService.buscarPorUsuarioId(usuarioId); 
     }
-
 }

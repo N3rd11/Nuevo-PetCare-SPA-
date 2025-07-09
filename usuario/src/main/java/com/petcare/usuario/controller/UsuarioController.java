@@ -57,4 +57,15 @@ public class UsuarioController {
     public List<Usuario> listar() {
         return service.listar();
     }
+@Operation(summary = "Buscar usuario por ID")
+@GetMapping("/{id}")
+public Usuario getById(@PathVariable Long id) {
+    return service.obtenerPorId(id).orElse(null);
+}
+
+@Operation(summary = "Eliminar usuario por ID")
+@DeleteMapping("/{id}")
+public void eliminar(@PathVariable Long id) {
+    service.eliminar(id);
+}
 }
