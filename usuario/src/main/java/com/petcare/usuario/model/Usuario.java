@@ -1,7 +1,6 @@
 package com.petcare.usuario.model;
 
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +20,6 @@ public class Usuario {
 
     private String nombrecompleto;
 
-    @Column(unique = true)
     private String correo;
 
     private String contrasena;

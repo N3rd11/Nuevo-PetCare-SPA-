@@ -13,7 +13,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                    .title("Microservice Usuario")
+                    .title("Microservicio Usuario")
                     .version("1.0")
                     .description("API para gestionar usuarios en el sistema PetCare"));
     }
