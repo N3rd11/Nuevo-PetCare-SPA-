@@ -39,7 +39,7 @@ public class DataLoader implements CommandLineRunner {
             // Asignar comuna a región
             region.setComunas(List.of(comuna));
 
-            // Guardar región (se guarda comuna también por cascade)
+            // Guardar región
             regionRepository.save(region);
 
             // Crear dirección
