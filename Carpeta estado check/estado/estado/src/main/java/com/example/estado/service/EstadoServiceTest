@@ -1,0 +1,114 @@
+package com.example.estado.service;
+
+import com.example.estado.model.estado;
+import com.example.estado.repository.estadoRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class estadoServiceTest {
+
+    private estadoRepository estadoRepository;
+    private estadoService estadoService;
+
+    @BeforeEach
+    void setUp() {
+        estadoRepository = mock(estadoRepository.class); // Se crea el mock
+        estadoService = new estadoService(estadoRepository); // Se inyecta el mock
+    }
+
+    @Test
+    void testGetEstados() {
+        estado e1 = new estado();
+        e1.setId(1L);
+        e1.setNombreEstado("Activo");
+
+        estado e2 = new estado();
+        e2.setId(2L);
+        e2.setNombreEstado("Inactivo");
+
+        when(estadoRepository.findAll()).thenReturn(Arrays.asList(e1, e2));
+
+        List<estado> resultado = estadoService.getEstados();
+
+        assertEquals(2, resultado.size());
+        verify(estadoRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testGetEstadoExistente() {
+        estado e = new estado();
+        e.setId(1L);
+        e.setNombreEstado("Activo");
+
+        when(estadoRepository.findById(1L)).thenReturn(Optional.of(e));
+
+        estado resultado = estadoService.getEstado(1L);
+
+        assertNotNull(resultado);
+        assertEquals("Activo", resultado.getNombreEstado());
+        verify(estadoRepository).findById(1L);
+    }
+
+    @Test
+    void testGetEstadoNoExistente() {
+        when(estadoRepository.findById(99L)).thenReturn(Optional.empty());
+
+        Exception ex = assertThrows(RuntimeException.class, () -> estadoService.getEstado(99L));
+        assertEquals("Estado no encontrado", ex.getMessage());
+    }
+
+    @Test
+    void testSaveEstado() {
+        estado nuevo = new estado();
+        nuevo.setNombreEstado("Nuevo");
+
+        when(estadoRepository.save(nuevo)).thenReturn(nuevo);
+
+        estado resultado = estadoService.saveEstado(nuevo);
+
+        assertNotNull(resultado);
+        assertEquals("Nuevo", resultado.getNombreEstado());
+        verify(estadoRepository).save(nuevo);
+    }
+
+    @Test
+    void testUpdateEstadoExistente() {
+        estado existente = new estado();
+        existente.setId(1L);
+        existente.setNombreEstado("Viejo");
+
+        estado actualizado = new estado();
+        actualizado.setNombreEstado("Nuevo");
+
+        when(estadoRepository.findById(1L)).thenReturn(Optional.of(existente));
+        when(estadoRepository.save(any())).thenReturn(existente);
+
+        estado resultado = estadoService.updateEstado(1L, actualizado);
+
+        assertEquals("Nuevo", resultado.getNombreEstado());
+        verify(estadoRepository).save(existente);
+    }
+
+    @Test
+    void testDeleteEstadoExistente() {
+        when(estadoRepository.existsById(1L)).thenReturn(true);
+
+        estadoService.deleteEstado(1L);
+
+        verify(estadoRepository).deleteById(1L);
+    }
+
+    @Test
+    void testDeleteEstadoNoExistente() {
+        when(estadoRepository.existsById(999L)).thenReturn(false);
+
+        Exception ex = assertThrows(RuntimeException.class, () -> estadoService.deleteEstado(999L));
+        assertEquals("Estado no encontrado", ex.getMessage());
+    }
+}

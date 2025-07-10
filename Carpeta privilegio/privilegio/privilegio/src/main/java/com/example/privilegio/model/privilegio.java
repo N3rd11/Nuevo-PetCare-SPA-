@@ -26,5 +26,5 @@ public class privilegio {
 
     @Column(nullable = false)
     private String descripcion;
-
+    
 }
